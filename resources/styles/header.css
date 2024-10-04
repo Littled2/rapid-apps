@@ -1,0 +1,27 @@
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+}
+
+header .header-top {
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .header-bottom {
+    padding: 1rem;
+    padding-left: var(--page-padding);
+    padding-right: var(--page-padding);
+    background-color: var(--bg-darker);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

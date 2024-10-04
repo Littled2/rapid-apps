@@ -1,0 +1,12 @@
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+section {
+    border-radius: 1rem;
+    background-color: var(--bg-darker);
+    padding: 1rem;
+    border: 0.8px solid var(--border);
+}

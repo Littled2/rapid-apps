@@ -1,0 +1,23 @@
+:root {
+    --page-padding: 25%;
+    --bg-lighter: rgb(55, 55, 55);
+    --bg: rgb(32, 32, 32);
+    --bg-darker: rgb(22, 22, 22);
+    --border: rgb(64, 64, 64);
+    --text: rgb(230, 230, 230);
+    --primary: rgb(31, 169, 227);
+    --radius: 4px;
+    --spacing-small: 8px;
+    --spacing-medium: 16px;
+    --spacing-large: 38px;
+}
+
+html {
+    font-family: sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+main {
+    padding-top: 2rem;
+}

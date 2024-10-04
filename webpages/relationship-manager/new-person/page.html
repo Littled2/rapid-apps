@@ -1,0 +1,46 @@
+
+
+<script>
+    function submitted(res) {
+        console.log(res)
+    }
+</script>
+
+<form
+    x-data="{ name: '', info: '', lastMeaningfulDate: null }"
+    @submit.prevent="$post({ route: '/backend/api/relationship-manager/people/POST-new-person.php', body: { name, info, lastMeaningfulDate } })"
+    @post="window.location.href = '/relationship-manager/'"
+>
+
+    <p><a href="/relationship-manager/">Back</a></p>
+
+    <h1>Add Person</h1>
+
+    <div class="form-item">
+        <div>
+            <label>Name</label>
+        </div>
+        <input type="text" x-model="name" required>
+    </div>
+
+    <div class="form-item">
+        <div>
+            <label>Information</label>
+        </div>
+        <textarea  x-model="info"></textarea>
+    </div>
+
+    <div class="form-item">
+        <div>
+            <label>Time of last meaningful conversation</label>
+        </div>
+        <input type="date" x-model="lastMeaningfulDate" required>
+    </div>
+
+    <div class="form-item">
+        <button
+            type="submit"
+        >Submit</button>
+    </div>
+
+</form>

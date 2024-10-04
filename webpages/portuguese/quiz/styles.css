@@ -1,0 +1,42 @@
+.quiz-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 6rem;
+}
+
+
+.yes {
+    background-color: green;
+    animation: zoom 0.5s forwards;
+}
+
+.no {
+    background-color: red;
+    animation: nope 0.5s ease;
+}
+
+.grey {
+    background-color: gray;
+}
+
+@keyframes zoom {
+    0% {
+        transform: scale(100%)
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+@keyframes nope {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(0);
+    }
+    40% {
+        transform: translateX(5px);
+    }
+    60% {
+        transform: translateX(-5px);
+    }
+}

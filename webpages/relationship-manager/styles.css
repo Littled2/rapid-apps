@@ -1,0 +1,78 @@
+.people {
+    display: flex;
+    flex-direction: column;
+}
+
+.person {
+    padding-top: 0.85rem;
+    padding-bottom: 0.85rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.person:not(:last-child) {
+    border-bottom: 0.5px solid gray;
+}
+
+.person:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+.recent {
+    border-radius: 1000px;
+    padding: 4px 8px;
+    background-color: green;
+}
+
+.intermediate {
+    border-radius: 1000px;
+    padding: 4px 8px;
+    background-color: orange;
+}
+
+.long-ago {
+    border-radius: 1000px;
+    padding: 4px 8px;
+    background-color: red;
+}
+
+.search {
+    display: flex;
+    gap: 6px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-radius: 0.25rem;
+    border: 0.8px solid var(--border);
+    background-color: var(--bg-darker);
+    position: sticky;
+    top: 10px;
+}
+
+.search:focus-within {
+    outline: 2px solid var(--primary);
+}
+
+.search > span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search > input {
+    flex: 1;
+    border: none;
+    font-size: 1rem;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.search > input:focus {
+    outline: none;
+}
+
+.search button {
+    background-color: transparent;
+    padding: 0;
+}

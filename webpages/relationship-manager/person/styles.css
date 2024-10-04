@@ -1,0 +1,50 @@
+.title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info {
+    padding: 16px;
+    border-radius: var(--radius);
+    border: 1px solid var(--border);
+    min-height: 8rem;
+
+    p {
+        white-space: pre-wrap;
+    }
+}
+
+.recent {
+    border-radius: 1000px;
+    padding: 4px 8px;
+    background-color: green;
+}
+
+.intermediate {
+    border-radius: 1000px;
+    padding: 4px 8px;
+    background-color: orange;
+}
+
+.long-ago {
+    border-radius: 1000px;
+    padding: 4px 8px;
+    background-color: red;
+}
+
+.lastDate {
+    border-radius: 1000px;
+    padding: 4px 8px;
+    background-color: rgb(75, 75, 75);
+}
+
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+    border-radius: 0.25rem;
+    border: 0.8px solid var(--border);
+    background-color: var(--bg-darker);
+    font-family: inherit;
+}

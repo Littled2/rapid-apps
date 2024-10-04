@@ -1,0 +1,11 @@
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.data-card {
+    padding: 2rem;
+    border-radius: 1rem;
+    background-color: var(--bg-lighter);
+}

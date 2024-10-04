@@ -1,0 +1,55 @@
+
+.page-padding-right {
+    padding-right: var(--page-padding);
+}
+
+.page-padding-left {
+    padding-left: var(--page-padding);
+}
+
+.flex {
+    display: flex;
+    gap: var(--spacing-small);
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.space-between {
+    justify-content: space-between;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.gap-m {
+    gap: var(--spacing-medium);
+}
+
+.gap-l {
+    gap: var(--spacing-large);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.text-primary,
+.primary,
+.p {
+    color: var(--primary);
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.bg-lighter {
+    background-color: var(--bg-lighter);
+}

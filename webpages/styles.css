@@ -1,0 +1,16 @@
+.quick-links > a {
+    padding: 1rem;
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+    font-weight: 500;
+    font-size: 1.1rem;
+    display: flex;
+    gap: var(--spacing-medium);
+    align-items: center;
+    background-color: rgba(200, 200, 200, 0.1);
+    border-radius: var(--radius);
+}
+
+.quick-links > a:hover {
+    background-color: rgba(200, 200, 200, 0.2);
+}

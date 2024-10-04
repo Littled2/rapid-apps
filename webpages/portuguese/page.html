@@ -1,0 +1,73 @@
+title: Portuguese words
+
+======================================
+
+<div
+    class="flex flex-col gap-l"
+    x-data="{ wordCount: 0 }"
+    x-init="$get('/backend/api/portuguese/words/GET-word-count.php');"
+    @get="wordCount = (await $event.detail.response.json()).wordCount;"
+>
+
+    <div class="flex space-between align-center">
+        <h1>
+            <span>
+                Oi <span x-text="authenticated.username"></span>!
+            </span>
+        </h1>
+        <!-- <a class="primary underline" href="/portuguese/new-word">+ new word</a> -->
+    </div>
+
+    <div class="flex flex-col gap-l">
+
+        <a class="data-card flex flex-col" href="/portuguese/words">
+            <h1 x-text="wordCount"></h1>
+            <p>Portuguese words in database</p>
+        </a>
+
+        <div>
+            <h2>Quizzes</h2>
+
+            <hr>
+        </div>
+
+        <div class="flex gap-l">
+
+            <a class="data-card flex-1 flex flex-col" href="/portuguese/quiz?questions=15">
+                <h2>Portuguese → English</h2>
+                <p>15 questions</p>
+            </a>
+
+            <a class="data-card flex-1 flex flex-col" href="/portuguese/quiz?questions=15">
+                <h2>English → Portuguese</h2>
+                <p>15 questions</p>
+            </a>
+
+        </div>
+
+        <div>
+            <a href="/portuguese/add-words" class="p underline">+ Add words</a>
+        </div>
+
+    </div>
+
+    <!-- <form
+        class="flex"
+        x-data="{ word: '', definition: '' }"
+        @submit.prevent="$post({ route: '/backend/api/portuguese/words/POST-new-word.php', body: { word, definition } })"
+        @post="window.location.href = '/portuguese/'"
+    >
+        <div>
+            <label>Portuguese word</label>
+            <input type="text" x-model="word">
+        </div>
+        <div>
+            <label>Definition</label>
+            <input type="text" x-model="definition">
+        </div>
+        <div>
+            <button>Submit</button>
+        </div>
+    </form> -->
+
+</div>

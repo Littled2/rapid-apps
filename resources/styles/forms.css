@@ -1,0 +1,10 @@
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-small);
+    
+    label {
+        font-weight: 500;
+    }
+}
