@@ -1,0 +1,110 @@
+title: API Documentation
+
+=====================================
+
+<div class="flex">
+    <a href="/documentation">Documentation</a>
+    <span class="p">></span>
+    <a href="/documentation/backend">Backend</a>
+    <span class="p">></span>
+    <a href="/documentation/backend/demand-db">Demand DB</a>
+</div>
+
+<h1>Demand DB</h1>
+
+<p>A database that requires nothing more than PHP. It is NOT designed to be efficient haha.</p>
+
+<p>Written by Ed at the end of Sept / start of Oct 2024. Demand DB uses collections of JSON objects to store data. Each collection has its own `.json` file.</p>
+
+<p>For Rapid Sites I have slightly extended the functionality to allow for easy authentication.</p>
+
+<h2>Reading</h2>
+
+<p>
+    Data can be read either by reading a specific document which you know the ID of, or by querying a whole collection.
+</p>
+
+<h3>Reading a single document (When you knoe the ID)</h3>
+
+<i>
+    You MUST know the document's ID.
+</i>
+
+<code><pre>
+    // Get a task by it's ID
+    $task = $database->get_document("tasks", "task_id");
+</pre></code>
+
+
+<h3>Reading when you don't know the IDs.</h3>
+
+<p>
+    Read all documents in a collection
+</p>
+
+<code><pre>
+    // Get all documents in the 'tasks' collection
+    $tasks = $database->get_documents("tasks")->documents;
+</pre></code>
+
+<p>
+    Select all documents that match a given criteria.
+</p>
+
+<code><pre>
+    // Get all tasks that have the label 'urgent'
+    $tasks = $database->get_documents("tasks")->where("label", "=", "urgent")->documents;
+</pre></code>
+
+<p>
+    Select the first document that matches a given criteria.
+</p>
+
+<code><pre>
+    $tasks = $database
+             ->get_documents("tasks")
+             ->where("label", "=", "urgent")
+             ->sort_by("time", "asc")"
+             ->first();
+</pre></code>
+
+<p>
+    Select the documents owned by the current user
+</p>
+
+<code><pre>
+    safely_start_session();
+
+    $database = new DemandDB();
+    
+    $words = $database->get_documents('tasks')->withOwner($_SESSION["user_id"])->documents;    
+</pre></code>
+
+
+
+<h2>Create a new document</h2>
+
+<code><pre>
+    // Create a task
+    $taskID = $database->create_document("tasks", $data);   
+</pre></code>
+
+
+<h2>Update a document</h2>
+
+<i>
+    Any fields that already exist in the document and that are not updated will be left alone.
+</i>
+
+<code><pre>
+    // Update a task
+    $database->update_document("tasks", "task_id", $data); 
+</pre></code>
+
+
+
+<h2>Delete a document</h2>
+
+<code><pre>
+    $database->delete_document("tasks", "task_id"); 
+</pre></code>

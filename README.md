@@ -76,7 +76,7 @@ All API routes should follow the following rules:
 
 ##### Helpers
 
-There are a number of helper functions for simplifying API route development.vThe helper functions are all written in `/backend/helpers/helpers.php`
+There are a number of helper functions for simplifying API route development. The helper functions are all written in `/backend/helpers/helpers.php`
 
  
 
@@ -114,13 +114,13 @@ Any database implementation must only be run from PHP, and not use its own proce
 ##### demand-db
 All database methods are contained within the `/backend/database/demand-db.php` file.
 
-- To use the database, import it, then initialise with `new DemandDB([path_to_data])`.
+- To use the database, import it, then initialise with `new DemandDB()`.
 - See demand-db documentation for further instructions.
 
 
 ```php
 
-$db = new DemandDB("....")
+$db = new DemandDB()
 
 // Create a task
 $taskID = $database->create_document("tasks", $data);
