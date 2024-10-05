@@ -21,8 +21,9 @@ foreach ((array) json_decode($_POST["words"]) as $word) {
     $word = (array) $word;
 
     $newWord = array(
-        "word" => $word["word"],
-        'definition' => $word["definition"]
+        'word' => $word["word"],
+        'definition' => $word["definition"],
+        'score' => 0
     );
     
     $newWord = set_document_owner($newWord, $_SESSION["user_id"]);
