@@ -10,7 +10,7 @@ title: Test yourself
         index: 0,
         selectedAnswer: null,
         isCorrect: null,
-        incorrectWords: []
+        incorrectWords: {},
         questionCount: new URLSearchParams(window.location.search).get('questions'),
         get currentWord() {
             if(!this.quiz.length) return
@@ -19,6 +19,9 @@ title: Test yourself
         get options() {
             if(!this.quiz.length) return
             return this.quiz[this.index].options
+        },
+        get incorrectCount() {
+            return Object.keys(this.incorrectWords).reduce((acc, word) => this.incorrectWords[word] + acc, 0)
         },
         submitAnswer(option) {
             this.selectedAnswer = option
@@ -39,18 +42,15 @@ title: Test yourself
                 this.incorrectWords[this.quiz[this.index].definition] += 1
             }
         },
-        get incorrectCount() {
-            return Object.keys(this.incorrectWords).reduce((acc, word) => this.incorrectWords[word] + acc, 0)
-        }
         complete() {
             // Send reponse to the server
         }
     }"
-    x-init="$get('/backend/api/portuguese/GET-quiz.php?questions=' + questionCount)"
+    x-init="$get('/backend/api/portuguese/quiz/GET-quiz.php?questions=' + questionCount)"
     @get="quiz = (await $event.detail.response.json())"
 >
 
-    <div x-show="index <= questionCount" class="quiz-wrapper">
+    <div x-show="index < questionCount" class="quiz-wrapper">
         <p>
             <span x-text="index + 1"></span>
             <span> / </span>
@@ -59,10 +59,7 @@ title: Test yourself
     
         <h1 class="text-center" x-text="currentWord"></h1>
     
-        <div class="flex flex-col">
-    
-            <!-- :disabled="selectedAnswer !== null" -->
-    
+        <div class="flex flex-col">  
     
             <template x-for="option in options">
                 <button
@@ -78,18 +75,18 @@ title: Test yourself
         </div>
     </div>
 
-    <div x-show="index > questionCount" class="flex flex-col gap-l">
+    <div x-show="index >= questionCount" class="flex flex-col gap-l">
 
         <h1>Congratulations! You completed the quiz.</h1>
     
-        <h3>Your score: <span x-text="incorrectCount"></span> / <span x-text="questionCount"></span></h3>
+        <h3>Your score: <span x-text="questionCount - Object.keys(incorrectCount).length"></span> / <span x-text="questionCount"></span></h3>
         
         <button
             x-post="{
                 url: "/backend/api/portuguese/quiz/POST-answers.php",
                 body: JSON.stringify({ incorrectWords })
             }"
-            @post="window.location.replace("/portuguese")"
+            @post="window.location.replace('/portuguese')"
         >Finish quiz</button>
 
     </div>

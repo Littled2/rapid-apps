@@ -24,12 +24,14 @@ title: Demand DB Documentation
     <li>Each route should have its own PHP file.</li>
     <li>Each route PHP file should be named as such `{HTTP METHOD}-{relevant entity}.php`. Eg. `GET-person.php`.</li>
     <li>Each route MUST: Check the correct HTTP method, validate any sent data, return response (often from database).</li>
-</ul>
+</ol>
 
 
 <h2>Checking request method</h2>
 
-<i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+<p>
+    <i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+</p>
 
 <pre>
     // Check HTTP method
@@ -39,7 +41,9 @@ title: Demand DB Documentation
 
 <h2>Validating request data</h2>
 
-<i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+<p>
+    <i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+</p>
 
 <pre>
     // Validate incoming data
@@ -49,7 +53,9 @@ title: Demand DB Documentation
 
 <h2>Responding to a request</h2>
 
-<i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+<p>
+    <i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+</p>
 
 <pre>
     // Responds and exits
@@ -59,7 +65,9 @@ title: Demand DB Documentation
 
 <h2>Verifying authentication</h2>
 
-<i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+<p>
+    <i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+</p>
 
 <pre>
     // Exists with a 403 code if the user is not logged in
@@ -69,7 +77,9 @@ title: Demand DB Documentation
 
 <h2>Working with sessions</h2>
 
-<i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+<p>
+    <i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+</p>
 
 <p>You cannot just call `session_start()` since this could cause issues if one of the helper functions has already called that method.</p>
 

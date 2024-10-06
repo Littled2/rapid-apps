@@ -24,6 +24,7 @@ title: Login to mini apps
     }"
     @submit.prevent="$post({ route: '/backend/api/auth/POST-login.php', body: { username, password } })"
     @post="authenticated = true; handleLogin($event.detail.response)"
+    class="flex flex-col gap-m"
 >
 
     <h2 class="text-center">Login</h2>

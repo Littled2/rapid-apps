@@ -1,22 +1,32 @@
-h1 {
-    padding-top: 2.5rem;
-    padding-bottom: 3.5rem;
-    font-size: 2.5rem !important;
-}
+main {
 
-h2 {
-    padding-top: 1.5rem;
-    padding-bottom: 2rem;
-    font-size: 1.85rem !important;
-}
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 4rem;
 
-h3 {
-    padding-top: 0.9rem;
-    padding-bottom: 1rem;
-    font-size: 1.25rem !important;
-}
+    h1 {
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        font-size: 2.5rem !important;
+    }
 
-p, ul, ol, code {
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
+    h2 {
+        padding-top: 4rem;
+        padding-bottom: 1.8rem;
+        font-size: 1.85rem !important;
+    }
+
+    h3 {
+        padding-top: 0.9rem;
+        padding-bottom: 1rem;
+        font-size: 1.25rem !important;
+    }
+
+    p, ul, ol, code {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+        line-height: 150%;
+        color: rgb(155, 155, 155) !important;
+    }
 }

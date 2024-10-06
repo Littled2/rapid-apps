@@ -24,6 +24,7 @@
     <!-- Import Alpine JS -->
     <!-- Remove this if you don't wish to use Alpine JS across you webpages -->
     <!-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs-requests@1.x.x/dist/plugin.min.js"></script> -->
+    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
     <script defer src="/scripts/alpine-requests.js"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
@@ -62,19 +63,29 @@
 </head>
 <body
     x-data="{
-        authenticated: null,
+        authenticated: $persist(null),
 
         get miniAppName() {
             let pathParts = window.location.pathname.split('/').filter(Boolean);
             return pathParts.length > 0 ? pathParts[0] : null;
+        },
+
+        async pageHasLoaded() {
+            let res = await fetch('/backend/api/auth/GET-user.php')
+
+            if(res.status === 200) {
+                let userData = await res.json()
+                this.authenticated = userData
+            }
         }
     }"
-    x-init="$get('/backend/api/auth/GET-user.php');"
+
+    x-init="pageHasLoaded"
     @get="console.log(await $event.detail.response); if(await $event.detail.response.status === 200) {authenticated = await $event.detail.response.json()}"
 >
 
     <header>
-        <div class="header-top">
+        <div class="header-top" x-cloak>
             <small>
                 <a href="/">🏠</a>
             </small>
@@ -101,7 +112,7 @@
         </div>
     </header>
     
-    <main class="page-padding-right page-padding-left">
+    <main class="page-padding-right page-padding-left" x-cloak>
         <!-- Insert the page content in here -->
         <?php echo $page->content; ?>
     </main>
