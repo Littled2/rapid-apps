@@ -1,0 +1,52 @@
+title: Login to mini apps
+
+=============================
+
+<script>
+    function handleLogin(response) {
+        if(response.status === 200) {
+
+            const returnURL = new URLSearchParams(window.location.search).get("return")
+
+            if(returnURL) {
+                window.location.href = returnURL
+            } else {
+                window.location.href = "/"
+            }
+        }
+    }
+</script>
+
+<form
+    x-data="{
+        username: '',
+        password: ''
+    }"
+    @submit.prevent="$post({ route: '/backend/api/auth/POST-login.php', body: { username, password } })"
+    @post="authenticated = true; handleLogin($event.detail.response)"
+    class="flex flex-col gap-m"
+>
+
+    <h2 class="text-center">Login</h2>
+
+    <div class="form-item">
+        <div>
+            <label>Username</label>
+        </div>
+        <input type="text" x-model="username" required>
+    </div>
+
+    <div class="form-item">
+        <div>
+            <label>Password</label>
+        </div>
+        <input type="password" x-model="password" required>
+    </div>
+
+    <button
+        type="submit"
+    >Login</button>
+
+    <p>No account? <a href="/auth/register" class="underline text-primary">Create one</a></p>
+
+</form>

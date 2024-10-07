@@ -1,0 +1,36 @@
+title: Delete exercise
+
+===================
+
+<div
+    x-data="{ exercise: null, exerciseID: new URLSearchParams(window.location.search).get('exerciseID') }"
+    x-init="$get('/backend/api/gym/exercises/GET-exercise.php?id=' + exerciseID)"
+    @get="exercise = await $event.detail.response.json()"
+>
+
+    <div class="flex flex-col gap-l">
+
+        <div class="breadcrumbs">
+            <a href="/gym/">Gym</a>
+            <span>></span>
+            <a href="/gym/exercises">Exercises</a>
+            <span>></span>
+            <a :href="'/gym/exercises/edit?id=' + exerciseID">Edit</a>
+        </div>
+
+        <div class="flex space-between">
+            <a href="/gym/exercises">Back</a>
+        </div>
+        
+        <h2 class="red">Are you sure you want to delete <span x-text="exercise.name"></span></h2>
+    
+        <div class="form-item">
+            <button
+                type="submit"
+                @click="$post({ route: '/backend/api/gym/exercises/POST-delete-exercise.php', body: { id: exerciseID } })"
+                @post="window.location.href = '/gym/exercises'"
+            >Delete</button>
+        </div>
+    </div>
+
+</div>

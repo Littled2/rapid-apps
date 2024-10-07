@@ -1,0 +1,76 @@
+Title: Person page
+
+=================================
+
+<div
+    x-data="{ person:null, buttonShow: true, daysAgo: -1000 }"
+    x-effect="daysAgo = Math.floor(((new Date().getTime()) - (new Date(person.lastMeaningfulDate).getTime())) / (24 * 60 * 60 * 1000))"
+    x-init="$get('/backend/api/relationship-manager/people/GET-person.php?id=' + new URLSearchParams(window.location.search).get('id'))"
+    @get="person = await $event.detail.response.json()"
+    class="flex flex-col"
+>
+
+    <div class="breadcrumbs">
+        <a href="/relationship-manager/">People</a>
+        <span>></span>
+        <a :href="'/relationship-manager/person?id=' + new URLSearchParams(window.location.search).get('id')" x-text="person.name">Name</a>
+    </div>
+
+    <br>
+
+    <div class="title">
+        <div>
+            <h1 x-text="person.name"></h1>
+
+            <br>
+
+            <div class="flex">
+
+                <div x-show="daysAgo !== -1000">
+                    <small
+                        :class="
+                            daysAgo > 50 ?
+                                'long-ago'
+                            :
+                                daysAgo > 18 ?
+                                    'intermediate'
+                                :
+                                    'recent'
+                        "
+                    >
+                        <span
+                            x-text="daysAgo"
+                        ></span>
+                        <span> days ago</span>
+                    </small>
+                </div>
+
+                <div>
+                    <small class="lastDate" x-text="person.lastMeaningfulDate"></small>
+                </div>
+
+            </div>
+
+        </div>
+    
+        <a :href="'/relationship-manager/person/edit?id=' + new URLSearchParams(window.location.search).get('id')" class="flex">🖉 Edit</a>
+    </div>
+    
+    <br><br>
+    
+    <div class="info">
+        <p x-text="person?.info"></p>
+    </div>
+
+    <br>
+
+    <div>
+        <button
+            x-post="{ route: '/backend/api/record/POST-record-conversation.php', body: { id: new URLSearchParams(window.location.search).get('id') } }"
+            @post="buttonShow = false"
+            x-show="buttonShow"
+            x-transition
+        >Record meaningful conversation</button>
+    </div>
+
+</div>

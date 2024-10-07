@@ -1,0 +1,58 @@
+Title: Person page
+
+=================================
+
+<div
+    x-data="{ person:null }"
+    x-init="$get('/backend/api/relationship-manager/people/GET-person.php?id=' + new URLSearchParams(window.location.search).get('id'))"
+    @get="person = await $event.detail.response.json()"
+>
+
+    <form
+        @submit.prevent="$post({ route: '/backend/api/relationship-manager/people/POST-update-person.php', body: { name: person?.name, info: person?.info ? person.info : '', lastMeaningfulDate: person?.lastMeaningfulDate, id: new URLSearchParams(window.location.search).get('id') } })"
+        @post="window.location.href = window.location.href.replace('/edit', '')"
+    >
+
+        <div class="breadcrumbs">
+            <a href="/relationship-manager/">People</a>
+            <span>></span>
+            <a :href="'/relationship-manager/person?id=' + new URLSearchParams(window.location.search).get('id')" x-text="person.name">Name</a>
+            <span>></span>
+            <a :href="'/relationship-manager/person/edit?id=' + new URLSearchParams(window.location.search).get('id')">Edit</a>
+        </div>
+
+        <div class="flex space-between">
+            <a :href="'/relationship-manager/person?id=' + new URLSearchParams(window.location.search).get('id')">Back</a>
+
+            <a :href="'/relationship-manager/person/edit/delete?id=' + new URLSearchParams(window.location.search).get('id')" style="color: red;">Delete</a>
+        </div>
+        
+        <div class="form-item">
+            <div>
+                <label>Name</label>
+            </div>
+            <input type="text" x-model="person.name" required>
+        </div>
+    
+        <div class="form-item">
+            <div>
+                <label>Information</label>
+            </div>
+            <textarea x-model="person.info"></textarea>
+        </div>
+    
+        <div class="form-item">
+            <div>
+                <label>Time of last meaningful conversation</label>
+            </div>
+            <input type="date" x-model="person.lastMeaningfulDate" required>
+        </div>
+    
+        <div class="form-item">
+            <button
+                type="submit"
+            >Save</button>
+        </div>
+    </form>
+
+</div>

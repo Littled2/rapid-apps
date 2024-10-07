@@ -1,0 +1,32 @@
+title: All Portuguese words
+
+=====================================
+
+<section class="flex flex-col gap-m">
+
+    <a href="/portuguese">Back</a>
+
+    <h2>All words in storage</h2>
+
+    <a href="/portuguese/add-words" class="p underline">+ Add words</a>
+    
+    <hr>
+    
+    <table
+        x-data="{ words: [] }"
+        x-init="$get('/backend/api/portuguese/words/GET-all-words.php');"
+        @get="words = await $event.detail.response.json();"
+    >
+        <template x-for="(word, index) in words">
+            <tr>
+                <td style="width: 2rem;" x-text="(index + 1) + '.'"></td>
+                <td x-text="word.word"></td>
+                <td x-text="word.definition"></td>
+                <td>
+                    <a href="/portuguese/word/delete" style="color: red;">🗑</a>
+                </td>
+            </tr>
+        </template>
+    </table>
+
+</section>

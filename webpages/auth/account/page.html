@@ -1,0 +1,25 @@
+
+<h3>
+    Account info for
+    <span x-text="authenticated.username" class="primary"></span>
+</h3>
+
+<br><br>
+
+<table>
+    <tr>
+        <td>User ID</td>
+        <td>-</td>
+        <td x-text="authenticated.id"></td>
+    </tr>
+</table>
+
+<br><br>
+
+<div class="flex flex-col">
+    <button
+        x-show="authenticated !== null"
+        @click="$post({ route: '/backend/api/auth/POST-logout.php' })"
+        @post=" if(await $event.detail.response.status === 200) {authenticated = null}"
+    >Log out</button>
+</div>

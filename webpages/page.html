@@ -1,0 +1,56 @@
+Title: Template app
+
+============================================
+
+<div
+    x-show="authenticated !== null"
+    class="flex flex-col"
+>
+    <h2>Rapid Apps</h2>
+
+    <hr>
+
+    <div class="quick-links flex flex-col">
+
+        <!-- <a href="/auth">
+            <span>🔑</span>
+            <span>Authenticator</span>
+        </a> -->
+
+        <a href="/relationship-manager">
+            <span>🧑</span>
+            <span>Relationship Manager</span>
+        </a>
+
+        <a href="/gym">
+            <span>🏋️‍♀️</span>
+            <span>Gym tracker</span>
+        </a>
+
+        <a href="/portuguese">
+            <span>🌎</span>
+            <span>Portuguese words</span>
+        </a>
+
+        <a href="https://edward-blewitt.uk/application-tracker" target="_blank">
+            <span>📄</span>
+            <span>Application Tracker</span>
+        </a>
+
+        <a href="/documentation">
+            <span>🔎</span>
+            <span>FindIt</span>
+        </a>
+
+        <a href="/documentation">
+            <span>📚</span>
+            <span>Rapid apps documentation</span>
+        </a>
+
+    </div>
+
+</div>
+
+<div x-show="authenticated === null">
+    <p class="text-center">Please <a class="primary underline" href="/auth/login">log in</a></p>
+</div>

@@ -1,0 +1,89 @@
+title: Demand DB Documentation
+
+=====================================
+
+<div class="flex">
+    <a href="/documentation">Documentation</a>
+    <span class="p">></span>
+    <a href="/documentation/backend">Backend</a>
+    <span class="p">></span>
+    <a href="/documentation/backend/api">API</a>
+</div>
+
+
+<h1>API Documentation</h1>
+
+
+<h2>Making an API route</h2>
+
+<p>API routes shoudl be declared in the `/backend/api/{your_app_name}` directory. The use of subdirectories within `/backend/api/{your_app_name}` is project dependant.</p>
+
+<p>All API routes should follow the following rules:</p>
+
+<ol>
+    <li>Each route should have its own PHP file.</li>
+    <li>Each route PHP file should be named as such `{HTTP METHOD}-{relevant entity}.php`. Eg. `GET-person.php`.</li>
+    <li>Each route MUST: Check the correct HTTP method, validate any sent data, return response (often from database).</li>
+</ol>
+
+
+<h2>Checking request method</h2>
+
+<p>
+    <i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+</p>
+
+<pre>
+    // Check HTTP method
+    http_method_must_be("POST"); // Fails if method is not POST (Works with GET also)    
+</pre>
+
+
+<h2>Validating request data</h2>
+
+<p>
+    <i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+</p>
+
+<pre>
+    // Validate incoming data
+    validate_request_data($_POST, "name|string", "age|number"); // Fails of either name or age has not been provided (Works with $_GET also)
+</pre>
+
+
+<h2>Responding to a request</h2>
+
+<p>
+    <i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+</p>
+
+<pre>
+    // Responds and exits
+    send_response(500, "Something went wrong server-side");
+</pre>
+
+
+<h2>Verifying authentication</h2>
+
+<p>
+    <i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+</p>
+
+<pre>
+    // Exists with a 403 code if the user is not logged in
+    must_be_authenticated();
+</pre>
+
+
+<h2>Working with sessions</h2>
+
+<p>
+    <i>You must first import the PHP file `/backend/helpers/helpers.php`.</i>
+</p>
+
+<p>You cannot just call `session_start()` since this could cause issues if one of the helper functions has already called that method.</p>
+
+<pre>
+    // Exists with a 403 code if the user is not logged in
+    safely_start_session();
+</pre>

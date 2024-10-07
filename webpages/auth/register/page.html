@@ -1,0 +1,35 @@
+title: Register for to mini apps
+
+=============================
+
+
+<form
+    x-data="{
+        username: '',
+        password: ''
+    }"
+    @submit.prevent="$post({ route: '/backend/api/auth/POST-register.php', body: { username, password } })"
+    @post="window.location.href = '/auth/login'"
+>
+
+    <h2 class="text-center">Register</h2>
+
+    <div class="form-item">
+        <div>
+            <label>Username</label>
+        </div>
+        <input type="text" x-model="username" required>
+    </div>
+
+    <div class="form-item">
+        <div>
+            <label>Password</label>
+        </div>
+        <input type="password" x-model="password" required>
+    </div>
+
+    <button
+        type="submit"
+    >Create account</button>
+
+</form>

@@ -1,0 +1,64 @@
+[x-cloak] { display: none !important; }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    background-color: transparent;
+    font-family: inherit;
+    color: inherit;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--primary);
+}
+
+
+button {
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    border: none;
+    background-color: var(--primary);
+    padding: 0.8rem;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+button:disabled {
+    background-color: rgb(48, 48, 48);
+}
+
+button, input, textarea {
+    border-radius: var(--radius);
+}
+
+input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+    border-radius: 0.25rem;
+    border: 0.8px solid var(--border);
+    background-color: var(--bg-darker);
+    font-family: inherit;
+}
+
+input:focus,
+textarea:focus {
+    outline: 1.8px solid var(--primary);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th,
+table td {
+    text-align: left;
+}

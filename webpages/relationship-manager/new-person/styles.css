@@ -1,0 +1,29 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin: auto;
+    max-width: 500px;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-item input,
+.form-item textarea {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+    border-radius: 0.25rem;
+    border: 0.8px solid var(--border);
+    background-color: var(--bg-darker);
+    font-family: inherit;
+}
+
+.form-item textarea {
+    resize: vertical;
+    min-height: 8rem;
+}

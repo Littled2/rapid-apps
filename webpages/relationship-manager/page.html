@@ -1,0 +1,75 @@
+Title: Relationship manager
+
+==========================================
+
+<div x-data="{
+        people: [],
+        search:'',
+
+        get filteredPeople() {
+
+            if(this.search === '') return this.people
+
+            return this.people.filter(
+                p => p?.name.toLowerCase().includes(this.search.toLowerCase())
+            )
+        }
+    }"
+    x-init="$get('/backend/api/relationship-manager/people/GET-people.php');"
+    @get="people = await $event.detail.response.json();"
+>
+
+    <section>
+        <p>Manage your network by ensuring no-one gets forgotten about.</p>
+
+        <p>
+            <a href="/relationship-manager/new-person" class="underline text-primary">+ New person</a>
+        </p>
+    </section>
+    
+    <br><br>
+    
+    <div class="search">
+        <span>🔎</span>
+        <input type="text" x-model="search" placeholder="Search for a person">
+        <button
+            x-show="search !== ''"
+            @click="search = ''"
+        >╳</button>
+    </div>
+
+    <br>
+    
+    <div class="people">
+
+        <template x-for="person in filteredPeople" :key="person.id">
+            <a
+                x-bind:href="'/relationship-manager/person?id=' + person.id"
+                class="person"
+            >
+                <p x-text="person.name"></p>
+    
+                <div x-data="{ daysAgo: Math.floor(((new Date().getTime()) - (new Date(person.lastMeaningfulDate).getTime())) / (24 * 60 * 60 * 1000)) }">
+                    <small
+                        :class="
+                            daysAgo > 90 ?
+                                'long-ago'
+                            :
+                                daysAgo > 45 ?
+                                    'intermediate'
+                                :
+                                    'recent'
+                        "
+                    >
+                        <span
+                            x-text="daysAgo"
+                        ></span>
+                        <span> days ago</span>
+                    </small>
+                </div>
+            </a>
+        </template>
+
+    </div>
+
+</div>

@@ -1,0 +1,65 @@
+title: Add new words to the database
+
+======================================
+
+<h1>Add new words</h1>
+
+<br><br>
+
+<form
+    x-data="{
+        words: [
+            {
+                word: '',
+                definition: ''
+            }
+        ],
+        addWord() {
+            this.words.push({ word: '', definition: '' });
+        },
+        removeWord(index) {
+            this.words.splice(index, 1);
+        }
+    }"
+    @submit.prevent="$post({ route: '/backend/api/portuguese/words/POST-new-words.php', body: { words: JSON.stringify(words) } })"
+    @post="window.location.href = '/portuguese/'"   
+>
+
+    <table>
+        <thead>
+            <th>Portuguese word</th>
+            <th>Definition</th>
+        </thead>
+        <tbody>
+
+            <template x-for="(word, index) in words" :key="index">
+                <tr>
+                    <td>
+                        <input type="text" x-model="word.word" required>
+                    </td>
+                    <td>
+                        <input type="text" x-model="word.definition" required>
+                    </td>
+                    <td>
+                        <span class="pointer" @click="removeWord(index)">&#10006</span>
+                    </td>
+                </tr>
+            </template>
+
+            <tr>
+                <td></td>
+                <td>
+                    <button type="button" @click="addWord">+</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br><br>
+
+    <div class="flex flex-col">
+        <button type="submit">Submit</button>
+    </div>
+
+</form>
+

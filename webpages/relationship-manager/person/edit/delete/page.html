@@ -1,0 +1,45 @@
+Title: Delete person page
+
+=================================
+
+<div
+    x-data="{ person:null }"
+    x-init="$get('/backend/api/relationship-manager/people/GET-person.php?id=' + new URLSearchParams(window.location.search).get('id'))"
+    @get="person = await $event.detail.response.json()"
+>
+
+    <form
+        @submit.prevent="$post({ route: '/backend/api/relationship-manager/people/POST-delete-person.php', body: { id: new URLSearchParams(window.location.search).get('id') } })"
+        @post="window.location.href = window.location.href = '/relationship-manager'"
+        class="flex flex-col"
+    >
+
+        <div class="breadcrumbs">
+            <a href="/relationship-manager/">People</a>
+            <span>></span>
+            <a :href="'/relationship-manager/person?id=' + new URLSearchParams(window.location.search).get('id')" x-text="person.name">Name</a>
+            <span>></span>
+            <a :href="'/relationship-manager/person/edit?id=' + new URLSearchParams(window.location.search).get('id')">Edit</a>
+            <span>></span>
+            <a :href="'/relationship-manager/person/edit?id=' + new URLSearchParams(window.location.search).get('id')">Delete</a>
+        </div>
+
+        <br>
+
+        <p><a :href="'/relationship-manager/person/edit?id=' + new URLSearchParams(window.location.search).get('id')">Back</a></p>
+
+        <br><br>
+
+        <h2>Are you sure you want to delete <span x-text="person.name"></span>?</h2>
+
+        <br><br>
+    
+        <div class="form-item">
+            <button
+                type="submit"
+                style="background-color: red;"
+            >Delete</button>
+        </div>
+    </form>
+
+</div>
