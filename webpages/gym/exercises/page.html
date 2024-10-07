@@ -1,0 +1,28 @@
+title: All Portuguese words
+
+=====================================
+
+<section class="flex flex-col gap-m">
+
+    <a href="/gym">Back</a>
+
+    <h2>Exercises</h2>
+
+    <a href="/gym/exercises/add-exercise" class="p underline">+ Add exercise</a>
+    
+    <hr>
+    
+    <div
+        x-data="{ exercises: [] }"
+        x-init="$get('/backend/api/gym/exercises/GET-all-exercises.php');"
+        @get="exercises = await $event.detail.response.json();"
+    >
+        <template x-for="(exercise, index) in exercises" :key="exercise.id">
+            <a :href="'/gym/exercises/edit?exerciseID=' + exercise.id" class="flex align-center">
+                <span style="width: 2rem;" x-text="(index + 1) + '.'"></span>
+                <span x-text="exercise.name"></span>
+            </a>
+        </template>
+    </div>
+
+</sectionclass=>

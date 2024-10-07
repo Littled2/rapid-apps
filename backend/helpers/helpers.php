@@ -76,6 +76,14 @@ function validate_request_data($data, ...$rules) {
                     }
                     break;
 
+                case 'json':
+                    json_decode($value);
+                    if (json_last_error() !== JSON_ERROR_NONE) {
+                        send_response(400, $field . " is not a valid JSON string.");
+                    }
+                    break;
+                    break;
+
                 default:
                     send_response(500, "Unknown validation type '$type' for field '$field'");
             }

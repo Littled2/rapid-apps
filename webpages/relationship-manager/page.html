@@ -11,7 +11,7 @@ Title: Relationship manager
             if(this.search === '') return this.people
 
             return this.people.filter(
-                p => p?.name.toLowerCase().includes(this.search)
+                p => p?.name.toLowerCase().includes(this.search.toLowerCase())
             )
         }
     }"
@@ -42,7 +42,7 @@ Title: Relationship manager
     
     <div class="people">
 
-        <template x-for="person in filteredPeople">
+        <template x-for="person in filteredPeople" :key="person.id">
             <a
                 x-bind:href="'/relationship-manager/person?id=' + person.id"
                 class="person"

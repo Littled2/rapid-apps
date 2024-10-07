@@ -4,7 +4,7 @@ title: Portuguese words
 
 <div
     class="flex flex-col gap-l"
-    x-data="{ wordCount: 0 }"
+    x-data="{ wordCount: $persist(0) }"
     x-init="$get('/backend/api/portuguese/words/GET-word-count.php');"
     @get="wordCount = (await $event.detail.response.json()).wordCount;"
 >

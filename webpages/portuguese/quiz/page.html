@@ -41,9 +41,6 @@ title: Test yourself
                 }
                 this.incorrectWords[this.quiz[this.index].definition] += 1
             }
-        },
-        complete() {
-            // Send reponse to the server
         }
     }"
     x-init="$get('/backend/api/portuguese/quiz/GET-quiz.php?questions=' + questionCount)"
@@ -82,10 +79,7 @@ title: Test yourself
         <h3>Your score: <span x-text="questionCount - Object.keys(incorrectCount).length"></span> / <span x-text="questionCount"></span></h3>
         
         <button
-            x-post="{
-                url: "/backend/api/portuguese/quiz/POST-answers.php",
-                body: JSON.stringify({ incorrectWords })
-            }"
+            @click="$post({ route: '/backend/api/portuguese/quiz/POST-incorrect-words.php', body: { incorrectWords: JSON.stringify(incorrectWords) } })"
             @post="window.location.replace('/portuguese')"
         >Finish quiz</button>
 

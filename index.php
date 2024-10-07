@@ -76,6 +76,8 @@
             if(res.status === 200) {
                 let userData = await res.json()
                 this.authenticated = userData
+            } else {
+                this.authenticated = null
             }
         }
     }"

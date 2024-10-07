@@ -9,9 +9,15 @@ must_be_authenticated();
 
 safely_start_session();
 
+
+
+
 $database = new DemandDB();
 
-$words = $database->get_documents('portuguese_words')->withOwner($_SESSION["user_id"])->sort_by("word", "asc")->documents;
+$exercises = $database->get_documents('exercises')->withOwner($_SESSION["user_id"])->documents;
 
-echo json_encode($words, JSON_PRETTY_PRINT);
+echo json_encode($exercises, JSON_PRETTY_PRINT);
+
+
+
 ?>

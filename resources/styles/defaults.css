@@ -4,8 +4,8 @@
     box-sizing: border-box;
     margin: 0;
     background-color: transparent;
-    color: var(--text);
     font-family: inherit;
+    color: inherit;
 }
 
 a {

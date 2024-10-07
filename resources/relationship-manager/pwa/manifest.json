@@ -1,7 +1,9 @@
 {
+    "id": "relationship-manager",
     "name": "Relationship manager",
     "short_name": "Relationships",
-    "start_url": "/relationship-manager",
+    "start_url": "/relationship-manager/",
+    "scope": "/relationship-manager/",
     "display": "standalone",
     "background_color": "#202020",
     "theme_color": "#1fa9e3",

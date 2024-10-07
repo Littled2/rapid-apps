@@ -1,0 +1,45 @@
+title: Edit exercise
+
+===================
+
+<div
+    x-data="{ exercise: null, exerciseID: new URLSearchParams(window.location.search).get('exerciseID') }"
+    x-init="$get('/backend/api/gym/exercises/GET-exercise.php?id=' + exerciseID)"
+    @get="exercise = await $event.detail.response.json()"
+>
+
+    <form
+        @submit.prevent="$post({ route: '/backend/api/gym/exercises/POST-update-exercise.php', body: { name: exercise.name, id: exerciseID } })"
+        @post="window.location.href = window.location.href.replace('/edit', '')"
+        class="flex flex-col gap-l"
+    >
+
+        <div class="breadcrumbs">
+            <a href="/gym/">Gym</a>
+            <span>></span>
+            <a href="/gym/exercises">Exercises</a>
+            <span>></span>
+            <a :href="'/gym/exercises/edit?exerciseID=' + exerciseID">Edit</a>
+        </div>
+
+        <div class="flex space-between">
+            <a href="/gym/exercises">Back</a>
+
+            <a :href="'/gym/exercises/edit/delete?exerciseID=' + exerciseID" style="color: red;">Delete</a>
+        </div>
+        
+        <div class="form-item">
+            <div>
+                <label>Name of exercise</label>
+            </div>
+            <input type="text" x-model="exercise.name" required>
+        </div>
+    
+        <div class="form-item">
+            <button
+                type="submit"
+            >Save</button>
+        </div>
+    </form>
+
+</div>
