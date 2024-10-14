@@ -2,5 +2,8 @@
 @media screen and (max-width: 600px) {
     :root {
         --page-padding: 1rem;
+        --spacing-small: 6px;
+        --spacing-medium: 12px;
+        --spacing-large: 18px;
     }    
 }

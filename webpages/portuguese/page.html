@@ -23,6 +23,9 @@ title: Portuguese words
         <a class="card flex flex-col" href="/portuguese/words">
             <h1 x-text="wordCount"></h1>
             <p>Portuguese words in database</p>
+
+            <!-- <a href="/portuguese/add-words" class="button">+ Add words</a> -->
+
         </a>
 
         <div>
@@ -33,20 +36,16 @@ title: Portuguese words
 
         <div class="flex flex-col">
 
-            <a class="card flex-1 flex flex-col" href="/portuguese/quiz?questions=15">
-                <p>Portuguese → English</p>
+            <a class="card flex-1 flex flex-col" href="/portuguese/quiz?questions=15&quizName=eng-por">
+                <p>English <span class="p">→</span> Portuguese</p>
                 <p>15 questions</p>
             </a>
 
-            <a class="card flex-1 flex flex-col" href="/portuguese/quiz?questions=15">
-                <p>English → Portuguese</p>
+            <a class="card flex-1 flex flex-col" href="/portuguese/quiz?questions=15&quizName=por-eng">
+                <p>Portuguese <span class="p">→</span> English</p>
                 <p>15 questions</p>
             </a>
 
-        </div>
-
-        <div>
-            <a href="/portuguese/add-words" class="p underline">+ Add words</a>
         </div>
 
     </div>

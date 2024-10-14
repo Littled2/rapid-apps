@@ -16,17 +16,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="manifest" href="/resources/pwa/manifest.json" />
-
     <meta name="theme-color" content="#202020">
     <link rel="icon" href="/resources/images/icon.png" type="image/png">
 
     <!-- Import Alpine JS -->
     <!-- Remove this if you don't wish to use Alpine JS across you webpages -->
     <!-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs-requests@1.x.x/dist/plugin.min.js"></script> -->
-    <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/persist@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="/scripts/alpine-persist.js"></script>
     <script defer src="/scripts/alpine-requests.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="/scripts/alpine.js"></script>
 
     <!-- Import html-ajax -->
     <script defer src="/scripts/html-ajax.js"></script>
@@ -74,10 +72,42 @@
             let res = await fetch('/backend/api/auth/GET-user.php')
 
             if(res.status === 200) {
+                console.log('User is already logged in')
                 let userData = await res.json()
                 this.authenticated = userData
             } else {
-                this.authenticated = null
+                console.log('User is NOT already logged in')
+
+                console.log('value of authenticated:', this.authenticated)
+
+                if(!this.authenticated) {
+                    return
+                }
+
+                try {
+
+                    // Try login with token
+                    let authRes = await fetch('/backend/api/auth/POST-login-with-token.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `token=${encodeURIComponent(this.authenticated?.token)}&username=${encodeURIComponent(this.authenticated?.username)}`
+                    })
+
+                    if(authRes.status === 200) {
+                        let auth = await authRes.json()
+                        console.log('NEW TOKEN', auth.token)
+                        this.authenticated = auth
+                    } else {
+                        this.authenticated = null
+                    }   
+
+                } catch (error) {
+
+                    console.log(error)
+
+                }
             }
         }
     }"
@@ -114,11 +144,18 @@
         </div>
     </header>
     
-    <main class="page-padding-right page-padding-left" x-cloak>
-        <!-- Insert the page content in here -->
-        <?php echo $page->content; ?>
-    </main>
+    <template x-if="authenticated !== null" x-cloak>
+        <main class="page-padding-right page-padding-left" x-cloak>
+            <!-- Insert the page content in here -->
+            <?php echo $page->content; ?>
+        </main>
+    </template>
 
+    <template x-if="authenticated === null" x-cloak>
+        <div>
+            <p class="text-center">Please <a class="primary underline" href="/auth/login">log in</a></p>
+        </div>
+    </template>
 
     <footer>
 

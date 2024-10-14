@@ -2,23 +2,77 @@ title: Gym Tracker
 
 ======================
 
+<script>
 
-<section class="flex flex-col">
 
-    <a class="card flex flex-col" href="/gym/visits">
-        <div class="flex align-center">
-            <h4>🏢</span>
-            <h4>Visits</h4>
-        </div>
-        <small>Record when you go to the gym</small>
+    (async () => {
+
+        let response = await fetch("/backend/api/gym/exercises/GET-exercise-data.php")
+        let raw = await response.json()
+
+        let exercises = await (await fetch("/backend/api/gym/exercises/GET-all-exercises.php")).json()
+
+        const labels = raw[Object.keys(raw)[0]].map(point => point.date)
+
+        console.log({raw, labels})
+
+
+        const ctx = document.getElementById('chart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: Object.keys(raw).map(exerciseID => {
+                    return {
+                        label: exercises.find(ex => ex.id === exerciseID).name,
+                        data: raw[exerciseID].map(point => point.weight),
+                    }
+                })
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    })()
+
+</script>
+
+<section class="flex flex-col gap-l">
+
+    <h1>Gym Tracker</h1>
+
+    <div href="/gym/all-data" class="card flex flex-col no-hover">
+        <canvas id="chart"></canvas>
+        <a class="p text-right" href="/gym/all-data">View fullscreen ⛶</a>
     </div>
 
-    <a class="card flex flex-col" href="/gym/exercises">
-        <div class="flex align-center">
-            <h4>🏋️‍♀️</h4>
-            <h4>Exercises</h4>
-        </div>
-        <small>Input the different exercises you might do.</small>
-    </a>
+    <div class="flex gap-l">
+        <a class="card flex flex-col flex-1 justify-center dash-card" href="/gym/visits">
+            <div class="flex align-center">
+                <h3>🏢</h3>
+                <h3>Visits</h3>
+            </div>
+            <small>Record when you go to the gym</small>
+        </a>
+    
+        <a class="card flex flex-col flex-1 justify-center dash-card" href="/gym/exercises">
+            <div class="flex align-center">
+                <h3>🏋️‍♀️</h3>
+                <h3>Exercises</h3>
+            </div>
+            <small>Input the different exercises you might do.</small>
+        </a>
+    </div>
+    
+    <button
+        x-post="{ route: '/backend/api/gym/visits/POST-new-visit.php' }"
+        @post="window.location.href = '/gym/visit?id=' + await $event.detail.response.text()"
+    >+ Record visit</button>
 
 </section>

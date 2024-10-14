@@ -1,0 +1,54 @@
+title: All gym data
+
+======================
+
+<script>
+
+
+    (async () => {
+
+        let response = await fetch("/backend/api/gym/exercises/GET-exercise-data.php")
+        let raw = await response.json()
+
+        let exercises = await (await fetch("/backend/api/gym/exercises/GET-all-exercises.php")).json()
+
+        const labels = raw[Object.keys(raw)[0]].map(point => point.date)
+
+        console.log({raw, labels})
+
+
+        const ctx = document.getElementById('chart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: Object.keys(raw).map(exerciseID => {
+                    return {
+                        label: exercises.find(ex => ex.id === exerciseID).name,
+                        data: raw[exerciseID].map(point => point.weight),
+                    }
+                })
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+    })()
+
+</script>
+
+<section class="flex flex-col gap-m wrapper">
+
+    <a class="p" href="/gym">Back to dashboard</a>
+
+    <h1>All Gym data</h1>
+    
+    <canvas class="chart" id="chart"></canvas>
+
+</section>

@@ -1,0 +1,9 @@
+main {
+    width: 100vw;
+    padding-left: 4% !important;
+    padding-right: 4% !important;
+}
+
+.chart {
+    height: 100% !important;
+}

@@ -10,7 +10,7 @@ Title: Delete person page
 
     <form
         @submit.prevent="$post({ route: '/backend/api/relationship-manager/people/POST-delete-person.php', body: { id: new URLSearchParams(window.location.search).get('id') } })"
-        @post="window.location.href = window.location.href = '/relationship-manager'"
+        @post="window.location.replace('/relationship-manager')"
         class="flex flex-col"
     >
 

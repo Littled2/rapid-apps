@@ -5,7 +5,7 @@ require_once __DIR__ . "/../../helpers/helpers.php";
 
 http_method_must_be("POST");
 
-validate_request_data($_POST, "username|string", "password|string");
+validate_request_data($_POST, "token|string", "username|string");
 
 
 $db = new DemandDB();
@@ -17,16 +17,17 @@ if($user === null) {
     send_response(400, "User does not exist");
 }
 
-// Check the password
-if(!password_verify($_POST["password"], $user["password"])) {
-    send_response(403, "Incorrect password");
-
+// Check there is a token
+if(!isset($user["token"])) {
+    send_response(403, "User does not have a token");
 }
 
-// Log the user in and create the SSO session
+// Check the token
+if($_POST["token"] !== $user["token"]) {
+    send_response(403, "Incorrect token");
+}
 
-session_start();
-
+// Create a new token and log the user in
 $token = bin2hex(random_bytes(16));
 
 $db->update_document("users", $user["id"], array(
@@ -38,6 +39,7 @@ $_SESSION["user_id"] = $user["id"];
 
 echo json_encode(
     array(
+        "username" => $user["username"],
         "token" => $token
     ),
     JSON_PRETTY_PRINT

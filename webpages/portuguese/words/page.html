@@ -23,6 +23,7 @@ title: All Portuguese words
                 <td x-text="word.word"></td>
                 <td x-text="word.definition"></td>
                 <td>
+                    <a :href="'https://context.reverso.net/translation/portuguese-english/' + word.word.toLowerCase()">🎤</a>
                     <a href="/portuguese/word/delete" style="color: red;">🗑</a>
                 </td>
             </tr>

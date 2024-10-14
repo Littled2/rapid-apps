@@ -10,7 +10,7 @@ Title: Person page
 
     <form
         @submit.prevent="$post({ route: '/backend/api/relationship-manager/people/POST-update-person.php', body: { name: person?.name, info: person?.info ? person.info : '', lastMeaningfulDate: person?.lastMeaningfulDate, id: new URLSearchParams(window.location.search).get('id') } })"
-        @post="window.location.href = window.location.href.replace('/edit', '')"
+        @post="window.location.replace(window.location.href.replace('/edit', ''))"
     >
 
         <div class="breadcrumbs">

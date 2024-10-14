@@ -120,6 +120,10 @@ class DemandDB {
 
     function set_document($collection, $id, $document) {
         $collectionData = $this->get_collection_data($collection);
+        $oldDoc = $collectionData[$id];
+        if(isset($oldDoc["user_id"]) && isset($document["user_id"]) && $document["user_id"] !== $oldDoc["user_id"]) {
+            send_response(403, "Cannot change document owner");
+        }
         $collectionData[$id] = $document;
         $this->set_collection_data($collection, $collectionData);
     }
@@ -130,6 +134,10 @@ class DemandDB {
         // Does the document exist
         if(!isset($collectionData[$id])) {
             send_response(400, "Document does not exist");
+        }
+
+        if(isset($updated["user_id"]) && isset($document["user_id"]) && $document["user_id"] !== $updated["user_id"]) {
+            send_response(403, "Cannot change document owner");
         }
         
         $collectionData[$id] = array_merge($collectionData[$id], $updated);

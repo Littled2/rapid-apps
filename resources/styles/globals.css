@@ -1,4 +1,4 @@
-:root {
+/* :root {
     --page-padding: 25%;
     --bg-lighter: rgb(55, 55, 55);
     --bg: rgb(32, 32, 32);
@@ -10,10 +10,25 @@
     --spacing-small: 8px;
     --spacing-medium: 16px;
     --spacing-large: 38px;
+} */
+
+:root {
+    --page-padding: 25%;
+    --bg-lighter: #1a1a1a;
+    --bg: #131313;
+    --bg-darker: #090909;
+    --border: rgb(41, 41, 41);
+    --text: #dbdbdb;
+    --primary: #1B7BFF;
+    --accent: #ff9f1b;
+    --radius: 4px;
+    --spacing-small: 8px;
+    --spacing-medium: 16px;
+    --spacing-large: 38px;
 }
 
 html {
-    font-family: sans-serif;
+    font-family: system-ui, sans-serif;
     background-color: var(--bg);
     color: var(--text);
 }
@@ -33,6 +48,26 @@ main {
     border-radius: var(--radius);
 }
 
-.card:hover {
+.card:not(.no-hover):hover {
     background-color: rgba(200, 200, 200, 0.2);
+}
+
+.button {
+    border: none;
+    cursor: pointer;
+    font-weight: 400;
+    border: none;
+    background-color: var(--primary);
+    padding: 0.8rem;
+    font-family: inherit;
+    font-size: inherit;
+    border-radius: var(--radius);
+}
+
+.button:hover {
+    filter: brightness(75%);
+}
+
+.button:disabled {
+    background-color: rgb(48, 48, 48);
 }

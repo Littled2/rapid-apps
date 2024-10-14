@@ -3,8 +3,11 @@ title: Login to mini apps
 =============================
 
 <script>
-    function handleLogin(response) {
+    async function handleLogin(response) {
         if(response.status === 200) {
+
+            let json = await response.json()
+            localStorage.setItem("auth_token", json.token)
 
             const returnURL = new URLSearchParams(window.location.search).get("return")
 

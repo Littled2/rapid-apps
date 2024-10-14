@@ -10,14 +10,16 @@ title: Test yourself
         index: 0,
         selectedAnswer: null,
         isCorrect: null,
-        incorrectWords: {},
+        attempts: 0,
+        results: {},
         questionCount: new URLSearchParams(window.location.search).get('questions'),
+        quizName: new URLSearchParams(window.location.search).get('quizName'),
         get currentWord() {
-            if(!this.quiz.length) return
-            return this.quiz[this.index].definition
+            if(!this.quiz.length || this.index >= this.quiz.length) return
+            return this.quiz[this.index].question
         },
         get options() {
-            if(!this.quiz.length) return
+            if(!this.quiz.length || this.index >= this.quiz.length) return
             return this.quiz[this.index].options
         },
         get incorrectCount() {
@@ -30,20 +32,18 @@ title: Test yourself
             
             if(this.isCorrect) {
                 setTimeout(() => {
-                    this.index++
                     this.selectedAnswer = null
                     this.isCorrect = null
+                    this.results[this.quiz[this.index].id] = this.attempts
+                    this.attempts = 0
+                    this.index++
                 }, 501)
             } else {
-                // Record incorrect answers in a hashmap
-                if(!(this.quiz[this.index].definition in this.incorrectWords)) {
-                    this.incorrectWords[this.quiz[this.index].definition] = 0
-                }
-                this.incorrectWords[this.quiz[this.index].definition] += 1
+                this.attempts++
             }
         }
     }"
-    x-init="$get('/backend/api/portuguese/quiz/GET-quiz.php?questions=' + questionCount)"
+    x-init="$get('/backend/api/portuguese/quiz/GET-' + quizName + '-quiz.php?questions=' + questionCount)"
     @get="quiz = (await $event.detail.response.json())"
 >
 
@@ -51,7 +51,7 @@ title: Test yourself
         <p>
             <span x-text="index + 1"></span>
             <span> / </span>
-            <span x-text="questionCount"></span>
+            <span x-text="quiz.length"></span>
         </p>
     
         <h1 class="text-center" x-text="currentWord"></h1>
@@ -76,10 +76,15 @@ title: Test yourself
 
         <h1>Congratulations! You completed the quiz.</h1>
     
-        <h3>Your score: <span x-text="questionCount - Object.keys(incorrectCount).length"></span> / <span x-text="questionCount"></span></h3>
+        <h3>
+            Your score: 
+            <span x-text="Object.keys(results).filter(id => results[id] === 0).length"></span>
+            <span> / </span>
+            <span x-text="Object.keys(results).length"></span>
+        </h3>
         
         <button
-            @click="$post({ route: '/backend/api/portuguese/quiz/POST-incorrect-words.php', body: { incorrectWords: JSON.stringify(incorrectWords) } })"
+            @click="$post({ route: '/backend/api/portuguese/quiz/POST-incorrect-words.php', body: { results: JSON.stringify(results), quizName } })"
             @post="window.location.replace('/portuguese')"
         >Finish quiz</button>
 

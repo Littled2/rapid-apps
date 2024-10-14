@@ -76,3 +76,10 @@
     background-color: transparent;
     padding: 0;
 }
+
+.new-button {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+}

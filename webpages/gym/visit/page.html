@@ -2,44 +2,88 @@ title: Gym visit
 
 ==============
 
-<table>
-    <thead>
-        <th>Exercise</th>
-        <th>Weight (kg)</th>
-        <th>Sets</th>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Shoulder Press</td>
-            <td>35kg</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>Shoulder Press</td>
-            <td>35kg</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>Shoulder Press</td>
-            <td>35kg</td>
-            <td>3</td>
-        </tr>
-        <tr>
-            <td>Shoulder Press</td>
-            <td>35kg</td>
-            <td>3</td>
-        </tr>
-        <tr></tr>
-        <tr>
-            <td>
-                <input type="text">
-            </td>
-            <td>
-                <input type="number">
-            </td>
-            <td>
-                <button>Submit</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<section
+    x-data="{
+        visit: null,
+        options: [],
+        editing: false,
+        id: new URLSearchParams(window.location.search).get('id'),
+        getExerciseName(exercise_id) {
+            const temp_exercise = this.options.find(ex => ex.id === exercise_id);
+            return temp_exercise ? temp_exercise.name : 'Exercise not found';
+        }
+    }"
+    x-init="$get('/backend/api/gym/visits/GET-visit.php?id=' + id)"
+    @get="visit = await $event.detail.response.json()"
+    class="flex flex-col gap-l"
+>
+
+    <div class="flex space-between align-center">
+        <h1>
+            <span class="p" x-text="timeAgo(new Date(visit?.created_at * 1000))"></span><span>'s Visit</span>
+        </h1>
+
+        <span class="pointer" @click="editing = !editing">✎</span>
+    </div>
+
+    <table
+        x-init="$get('/backend/api/gym/exercises/GET-all-exercises.php')"
+        @get="options = await $event.detail.response.json()"
+    >
+        <thead>
+            <th>Exercise</th>
+            <th>Weight (kg)</th>
+        </thead>
+        <tbody>
+
+            <template x-for="(exercise, index) in visit?.exercises">
+                <tr>
+                    <td x-text="getExerciseName(exercise.exerciseID)"></td>
+                    <td>
+                        <span x-text="exercise.weight"></span>
+                        <span>kg</span>
+                    </td>
+                    <td x-show="editing" style="width: 2rem;">
+                        <span 
+                            x-post="{
+                                route: '/backend/api/gym/visits/POST-delete-exercise.php',
+                                body: { visitID: id, index }
+                            }"
+                            @post="window.location.reload()"
+                            class="pointer"
+                        >❌</span>
+                    </td>
+                </tr>
+            </template>
+
+            <tr
+                x-data="{
+                    exerciseID: '',
+                    weight: 0
+                }"
+            >
+                <td>
+                    <select x-model="exerciseID">
+                        <option>Select an exercise</option>
+                        <template x-for="option in options">
+                            <option :value="option.id" :key="option.id" x-text="option.name"></option>
+                        </template>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" x-model="weight">
+                </td>
+                <td>
+                    <button
+                        x-post="{
+                            route: '/backend/api/gym/visits/POST-new-exercise.php',
+                            body: { exerciseID, weight, id }
+                        }"
+                        @post="window.location.reload()"
+                    >Submit</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</section>

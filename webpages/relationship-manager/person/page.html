@@ -66,7 +66,7 @@ Title: Person page
 
     <div>
         <button
-            x-post="{ route: '/backend/api/record/POST-record-conversation.php', body: { id: new URLSearchParams(window.location.search).get('id') } }"
+            x-post="{ route: '/backend/api/relationship-manager/record/POST-record-conversation.php', body: { id: new URLSearchParams(window.location.search).get('id') } }"
             @post="buttonShow = false"
             x-show="buttonShow"
             x-transition

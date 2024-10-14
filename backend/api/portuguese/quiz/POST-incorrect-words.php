@@ -5,26 +5,25 @@ require_once __DIR__ . "/../../../helpers/helpers.php";
 
 http_method_must_be("POST");
 
-echo var_dump($_POST);
-
-validate_request_data($_POST, "incorrectWords");
+validate_request_data($_POST, "results", "quizName|string");
 
 must_be_authenticated();
 
 safely_start_session();
 
 
-var_dump(json_decode($_POST["incorrectWords"]));
-
-// What should I do with the results?
-
 $database = new DemandDB();
 
-$result = json_decode($_POST["incorrectWords"]);
+$results = (array) json_decode($_POST["results"]);
 
-set_document_owner($result, $_SESSION["user_id"]);
+$document = array(
+    "quizName" => $_POST["quizName"],
+    "results" => $results
+);
 
-$id = $database->create_document('quiz_results', $result);
+set_document_owner($document, $_SESSION["user_id"]);
+
+$id = $database->create_document('quiz_results', $document);
 
 echo $id;
 

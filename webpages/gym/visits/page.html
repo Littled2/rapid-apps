@@ -1,0 +1,35 @@
+title: Gym Visits
+
+======================================
+
+
+<section class="flex flex-col gap-l">
+
+    <div class="flex flex-col gap-m">
+        <a href="/gym">Back</a>
+
+        <h1>Recent visits</h1>
+    </div>
+    
+    <div
+        x-data="{ visits: [] }"
+        x-init="$get('/backend/api/gym/visits/GET-all-visits.php');"
+        @get="visits = await $event.detail.response.json();"
+        class="flex flex-col"
+    >
+        <template x-for="visit in visits">
+            <a :href="'/gym/visit?id=' + visit.id" class="card flex space-between">
+                <p x-text="visit.date"></p>
+                <p class="p">View</p>
+            </a>
+        </template>
+
+        <a href="/gym/visits/all" class="p underline text-center">View all</a>
+    </div>
+
+    <button
+        x-post="{ route: '/backend/api/gym/visits/POST-new-visit.php' }"
+        @post="window.location.href = '/gym/visit?id=' + await $event.detail.response.text()"
+    >+ New visit</button>
+
+</section>

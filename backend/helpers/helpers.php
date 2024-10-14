@@ -56,7 +56,7 @@ function validate_request_data($data, ...$rules) {
 
         // Check if the field exists
         if (!isset($data[$field])) {
-            throw new Exception("The field '$field' is required.");
+            send_response(400, "The field '$field' is required.");
         }
 
         $value = $data[$field];
@@ -81,7 +81,6 @@ function validate_request_data($data, ...$rules) {
                     if (json_last_error() !== JSON_ERROR_NONE) {
                         send_response(400, $field . " is not a valid JSON string.");
                     }
-                    break;
                     break;
 
                 default:

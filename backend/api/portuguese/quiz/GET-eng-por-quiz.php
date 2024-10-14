@@ -20,8 +20,7 @@ safely_start_session();
 
 // Thanks Chat GPT
 
-function generateQuiz($data, $maxQuestions = 15) {
-
+function generateQuiz($data, $maxQuestions = 15) { 
     shuffle($data);
 
     $quiz = [];
@@ -31,17 +30,18 @@ function generateQuiz($data, $maxQuestions = 15) {
     $randomKeys = array_rand($data, $totalQuestions); 
     $randomKeys = (array) $randomKeys; // Ensure $randomKeys is an array in case of a single element
 
-    $allWords = array_column($data, 'word'); // Extract all words from the quiz data
+    $allDefinitions = array_column($data, 'definition'); // Extract all definitions from the quiz data
 
     foreach ($randomKeys as $key) {
         $item = $data[$key];
-        $correctAnswer = $item['word'];
-        $incorrectAnswers = generateIncorrectAnswers($correctAnswer, $allWords);
+        $correctAnswer = $item['definition']; // The correct answer is now the Portuguese word
+        $incorrectAnswers = generateIncorrectAnswers($correctAnswer, $allDefinitions);
         $options = array_merge([$correctAnswer], $incorrectAnswers);
         shuffle($options); // Shuffle options
 
         $quiz[] = [
-            "definition" => $item['definition'],
+            "id" => $item["id"],
+            "question" => $item['word'], // The word in English
             "options" => $options,
             "correctAnswer" => $correctAnswer
         ];
@@ -50,20 +50,18 @@ function generateQuiz($data, $maxQuestions = 15) {
     return $quiz;
 }
 
-// Function to generate incorrect answers from the same word list using array_rand()
-function generateIncorrectAnswers($correctAnswer, $allWords) {
-    $filteredWords = array_diff($allWords, [$correctAnswer]); // Remove the correct answer
-    $randomKeys = array_rand($filteredWords, 3); // Pick 3 random keys from the filtered words
+// Function to generate incorrect answers from the same definition list using array_rand()
+function generateIncorrectAnswers($correctAnswer, $allDefinitions) {
+    $filteredDefinitions = array_diff($allDefinitions, [$correctAnswer]); // Remove the correct answer
+    $randomKeys = array_rand($filteredDefinitions, 3); // Pick 3 random keys from the filtered definitions
 
     $incorrectAnswers = [];
     foreach ($randomKeys as $key) {
-        $incorrectAnswers[] = $filteredWords[$key]; // Get the random words
+        $incorrectAnswers[] = $filteredDefinitions[$key]; // Get the random words
     }
 
     return $incorrectAnswers;
 }
-
-
 
 
 
