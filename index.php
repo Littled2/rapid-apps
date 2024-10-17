@@ -144,7 +144,7 @@
         </div>
     </header>
     
-    <template x-if="authenticated !== null" x-cloak>
+    <template x-if="authenticated !== null || window.location.pathname.startsWith('/auth')" x-cloak>
         <main class="page-padding-right page-padding-left" x-cloak>
             <!-- Insert the page content in here -->
             <?php echo $page->content; ?>
