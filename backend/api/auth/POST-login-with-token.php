@@ -34,6 +34,8 @@ $db->update_document("users", $user["id"], array(
     "token" => $token
 ));
 
+safely_start_session();
+
 $_SESSION["username"] = $user["username"];
 $_SESSION["user_id"] = $user["id"];
 

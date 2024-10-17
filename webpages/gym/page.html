@@ -69,10 +69,7 @@ title: Gym Tracker
             <small>Input the different exercises you might do.</small>
         </a>
     </div>
-    
-    <button
-        x-post="{ route: '/backend/api/gym/visits/POST-new-visit.php' }"
-        @post="window.location.href = '/gym/visit?id=' + await $event.detail.response.text()"
-    >+ Record visit</button>
+
+    <a href="/gym/add-visit" class="button">+ Record Visit</a>
 
 </section>

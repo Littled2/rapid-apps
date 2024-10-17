@@ -12,7 +12,7 @@ Title: Person page
 
     <div class="breadcrumbs">
         <a href="/relationship-manager/">People</a>
-        <span>></span>
+        <span class="p">></span>
         <a :href="'/relationship-manager/person?id=' + new URLSearchParams(window.location.search).get('id')" x-text="person.name">Name</a>
     </div>
 
@@ -28,15 +28,15 @@ Title: Person page
 
                 <div x-show="daysAgo !== -1000">
                     <small
-                        :class="
-                            daysAgo > 50 ?
-                                'long-ago'
+                    :class="
+                        daysAgo > 90 ?
+                            'long-ago'
+                        :
+                            daysAgo > 45 ?
+                                'intermediate'
                             :
-                                daysAgo > 18 ?
-                                    'intermediate'
-                                :
-                                    'recent'
-                        "
+                                'recent'
+                    "
                     >
                         <span
                             x-text="daysAgo"
@@ -53,7 +53,7 @@ Title: Person page
 
         </div>
     
-        <a :href="'/relationship-manager/person/edit?id=' + new URLSearchParams(window.location.search).get('id')" class="flex">🖉 Edit</a>
+        <a :href="'/relationship-manager/person/edit?id=' + new URLSearchParams(window.location.search).get('id')" class="flex">✎ Edit</a>
     </div>
     
     <br><br>

@@ -121,9 +121,15 @@ class DemandDB {
     function set_document($collection, $id, $document) {
         $collectionData = $this->get_collection_data($collection);
         $oldDoc = $collectionData[$id];
+
+        if(isset($document["id"])) {
+            send_response(400, "Cannot set 'id' field. 'id' is a protected field.'");
+        }
+
         if(isset($oldDoc["user_id"]) && isset($document["user_id"]) && $document["user_id"] !== $oldDoc["user_id"]) {
             send_response(403, "Cannot change document owner");
         }
+        
         $collectionData[$id] = $document;
         $this->set_collection_data($collection, $collectionData);
     }
@@ -134,6 +140,10 @@ class DemandDB {
         // Does the document exist
         if(!isset($collectionData[$id])) {
             send_response(400, "Document does not exist");
+        }
+
+        if(isset($updated["id"])) {
+            send_response(400, "Cannot set 'id' field. 'id' is a protected field.'");
         }
 
         if(isset($updated["user_id"]) && isset($document["user_id"]) && $document["user_id"] !== $updated["user_id"]) {

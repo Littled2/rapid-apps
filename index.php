@@ -78,8 +78,6 @@
             } else {
                 console.log('User is NOT already logged in')
 
-                console.log('value of authenticated:', this.authenticated)
-
                 if(!this.authenticated) {
                     return
                 }
@@ -118,9 +116,11 @@
 
     <header>
         <div class="header-top" x-cloak>
-            <small>
-                <a href="/">🏠</a>
-            </small>
+            <a href="/">
+                <small>
+                    🏠 Rapid Apps
+                </small>
+            </a>
 
             <small x-show="authenticated === null">
                 <a
@@ -137,9 +137,9 @@
             </small>
         </div>
 
-        <div class="header-bottom">
+        <div x-show="miniAppName" class="header-bottom">
             <a x-bind:href="'/' + miniAppName">
-                <h2 x-text="miniAppName"></h2>
+                <h2 x-text="miniAppName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')"></h2>
             </a>
         </div>
     </header>

@@ -21,7 +21,7 @@ $document = array(
     "results" => $results
 );
 
-set_document_owner($document, $_SESSION["user_id"]);
+$document = set_document_owner($document, $_SESSION["user_id"]);
 
 $id = $database->create_document('quiz_results', $document);
 
