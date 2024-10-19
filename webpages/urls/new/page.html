@@ -1,0 +1,37 @@
+title: Add new link
+
+==========================
+
+<a href="/urls" class="go-back"></a>
+
+<h1>Create new link</h1>
+
+<br>
+
+<form
+    x-data="{
+        name: '',
+        url: ''
+    }"
+    @submit.prevent="$post({ route: '/backend/api/urls/POST-new-url.php', body: { name, url } })"
+    @post="window.location.replace('/urls')"
+    class="flex flex-col gap-m"
+>
+
+    <div class="form-item">
+        <div>
+            <label>Name</label>
+        </div>
+        <input type="text" x-model="name" required>
+    </div>
+
+    <div class="form-item">
+        <div>
+            <label>Actual URL</label>
+        </div>
+        <input type="text" x-model="url" required>
+    </div>
+
+    <button type="submit">Create link</button>
+
+</form>

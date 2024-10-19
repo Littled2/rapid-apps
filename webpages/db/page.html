@@ -1,0 +1,41 @@
+<h1>Database manager</h1>
+
+<section
+    x-data="{
+        collections: [],
+        selected: null,
+        collectionData: [],
+        headings: []
+    }"
+    x-init="$get('/backend/api/db/collections/GET-all-collections.php')"
+    @get="collections = await $event.detail.response.json();"
+    class="flex wrapper"
+>
+
+    <div class="db-side card no-hover flex flex-col gap-m">
+        <p>Collections</p>
+        <div class="flex flex-col">
+            <template x-for="name in collections">
+                <small @click="selected = " :class="{ 'p': true, selected: selected === name }" x-text="name"></small>
+            </template>
+        </div>
+    </div>
+
+    <div class="card"
+        x-effect="$get('/backend/api/db/collections/GET-collection-data.php?collection=' + selected)"
+        @get="collectionData = await $event.detail.response.json();"
+    >
+
+        <table>
+            <thead>
+                
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+</section>

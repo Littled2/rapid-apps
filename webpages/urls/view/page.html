@@ -1,0 +1,35 @@
+title: View link
+
+======================
+
+<div
+    x-data="{
+        link: null,
+        linkID: new URLSearchParams(window.location.search).get('id'),
+        sharableURLBase: window.location.origin
+    }"
+    x-init="$get('/backend/api/urls/GET-url.php?id=' + linkID)"
+    @get="link = await $event.detail.response.json();"
+    class="flex flex-col gap-l"
+>
+
+    <a href="/urls" class="go-back">Back</a>
+
+    <div class="flex space-between align-items">
+        <h1 x-text="link?.name"></h1>
+        <a :href="'/urls/view/edit?id=' + link.id">Edit ✎</a>
+    </div>
+
+    <a :href="link?.url" target="_blank" x-text="link?.url"></a>
+
+    <div class="card no-hover flex flex-col">
+        <p>Sharable link</p>
+        <h4><code><span x-text="sharableURLBase"></span>/backend/api/urls/GET-goto-url.php?id=<span x-text="link?.id"></span></code></h4>
+    </div>
+
+    <div class="card no-hover">
+        <h1 class="p" x-text="link?.uses"></h1>
+        <h3>Uses</h3>
+    </div>
+
+</div>

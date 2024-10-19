@@ -1,0 +1,27 @@
+title: Delete URL
+
+=============================
+
+<div
+    x-data="{
+        link: null,
+        linkID: new URLSearchParams(window.location.search).get('id'),
+        sharableURLBase: window.location.origin
+    }"
+    x-init="$get('/backend/api/urls/GET-url.php?id=' + linkID)"
+    @get="link = await $event.detail.response.json();"
+    class="flex flex-col gap-l"
+>
+
+    <a :href="'/urls/view/edit?id=' + link.id" class="go-back">Back</a>
+
+    <h1 class="red">Are you sure you want to delete <span x-text="link?.name"></span>?</h1>
+
+    <p>Link to: <span class="red" x-text="link?.url"></span></p>
+
+    <button
+        x-post="{ route: '/backend/api/urls/POST-delete-url.php', body: { id: linkID } }"
+        @post="window.location.replace('/urls')"
+    >Delete</button>
+
+</div>

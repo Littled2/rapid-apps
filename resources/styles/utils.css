@@ -58,7 +58,9 @@
     color: var(--primary);
 }
 
-.red {
+.red,
+.danger,
+.d {
     color: rgb(238, 19, 19);
 }
 

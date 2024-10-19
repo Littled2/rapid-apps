@@ -1,0 +1,40 @@
+title: Edit link
+
+======================
+
+<form
+    x-data="{
+        link: null,
+        linkID: new URLSearchParams(window.location.search).get('id'),
+    }"
+    @submit.prevent="$post({ route: '/backend/api/urls/POST-update-url.php', body: { id: link?.id, name: link?.name, url: link?.url } })"
+    @post="window.location.href '/urls/view?id=' + linkID"
+    x-init="$get('/backend/api/urls/GET-url.php?id=' + linkID)"
+    @get="link = await $event.detail.response.json();"
+    class="flex flex-col gap-l"
+>
+
+    <div class="flex space-between">
+        <a href="/urls" class="go-back">Back</a>
+        <a :href="'/urls/view/edit/delete?id=' + linkID" class="d">Delete</a>
+    </div>
+
+    <h1>Edit link</h1>
+
+    <div class="form-item">
+        <div>
+            <label>Name</label>
+        </div>
+        <input type="text" x-model="link.name" required>
+    </div>
+
+    <div class="form-item">
+        <div>
+            <label>Actual URL</label>
+        </div>
+        <input type="text" x-model="link.url" required>
+    </div>
+
+    <button type="submit">Save</button>
+
+</form>

@@ -1,0 +1,11 @@
+.wrapper {
+    min-height: 80vh;
+}
+
+.db-side {
+    /* width: 12rem; */
+}
+
+.selected {
+    color: yellow !important;
+}

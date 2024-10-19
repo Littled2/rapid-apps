@@ -1,0 +1,33 @@
+title: URL tracker
+
+===========================
+
+<div
+    x-data="{
+        links: []
+    }"
+    x-init="$get('/backend/api/urls/GET-all-urls.php')"
+    @get="links = await $event.detail.response.json();"
+    class="flex flex-col gap-l"
+>
+
+    <h1>Link Tracker</h1>
+
+    <div class="flex flex-col">
+        <template x-for="link in links">
+            <a :href="'/urls/view?id=' + link.id" class="card flex flex-col">
+                <div class="flex space-between">
+                    <h3 x-text="link.name"></h3>
+                    <div class="flex align-center">
+                        <h2 class="p" x-text="link.uses"></h2>
+                        <h5> uses</h5>
+                    </div>
+                </div>
+                <small x-text="link.url"></small>
+            </a>
+        </template>
+    </div>
+
+    <a href="/urls/new" class="button">+ New URL</a>
+
+</div>
