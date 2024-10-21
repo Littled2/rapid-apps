@@ -1,3 +1,4 @@
 /backend/database/data/*
+/backend/database/files/*
 
 git-webhook.php

@@ -1,3 +1,8 @@
+main {
+    padding-left: calc(var(--page-padding) / 3) !important;
+    padding-right: calc(var(--page-padding) / 3) !important;
+}
+
 .wrapper {
     min-height: 80vh;
 }
@@ -9,3 +14,22 @@
 .selected {
     color: yellow !important;
 }
+
+.data-table {
+    width: 100%;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.data-table th {
+    padding-bottom: 6px;
+}
+
+.data-table th,
+.data-table td {
+    padding: 3px;
+}
+
+.data-table tr:nth-child(even) {
+    background-color: rgba(28, 28, 28, 0.4);
+  }

@@ -1,0 +1,115 @@
+:root {
+    --page-padding: 25%;
+    --bg-lighter: #f3f3f3 !important;
+    --bg: #ffffff !important;
+    --bg-darker: #d8d8d8 !important;
+    --border: rgb(207, 207, 207) !important;
+    --text: #212121 !important;
+    --primary: #1B7BFF;
+    --accent: #ff9f1b;
+    --radius: 8px !important;
+    --spacing-small: 12px !important;
+    --spacing-medium: 20px !important;
+    --spacing-large: 44px !important;
+}
+
+.header-bottom {
+    display: none !important;
+}
+
+button, .button {
+    color: white;
+}
+
+main {
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: 0 !important;
+    gap: var(--spacing-large);
+}
+
+footer {
+    background-color: var(--bg-lighter) !important;
+}
+
+.wrapper {
+    display: flex;
+    flex: 1;
+}
+
+.sidebar {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    width: 300px;
+    gap: var(--spacing-large);
+}
+
+.inner-wrapper {
+    flex: 1;
+    padding-top: 2rem;
+}
+
+.files {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-medium);
+    padding: 2rem;
+    padding-left: 0;
+}
+
+
+.preview-image {
+    display: inline;
+    width: 1.5rem;
+    max-height: 1.5rem;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.popup-wrapper {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.popup {
+    min-width: 500px;
+    background-color: var(--bg-lighter);
+    border-radius: var(--radius);
+    padding: 2rem;
+}
+
+.selected {
+    background-color: var(--primary) !important;
+    filter: brightness(150%);
+    color: white;
+}
+
+.file {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.file .icon {
+    font-size: 1.5rem;
+}
+
+.file .name {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

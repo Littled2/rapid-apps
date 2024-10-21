@@ -1,11 +1,26 @@
 <h1>Database manager</h1>
+<small>Shows all documents attributed to your user</small>
+
+<br><br>
 
 <section
     x-data="{
         collections: [],
         selected: null,
         collectionData: [],
-        headings: []
+        get columns() {
+            let cols = [ 'id' ]
+            for (let i = 0; i < this.collectionData.length; i++) {
+                const document = this.collectionData[i];
+                for (let j = 0; j < Object.keys(document).length; j++) {
+                    const col = Object.keys(document)[j];
+                    if(!cols.includes(col)) {
+                        cols.push(col)
+                    }
+                }
+            }
+            return cols
+        }
     }"
     x-init="$get('/backend/api/db/collections/GET-all-collections.php')"
     @get="collections = await $event.detail.response.json();"
@@ -16,22 +31,30 @@
         <p>Collections</p>
         <div class="flex flex-col">
             <template x-for="name in collections">
-                <small @click="selected = " :class="{ 'p': true, selected: selected === name }" x-text="name"></small>
+                <small class="pointer" @click="selected = name" :class="{ 'p': true, selected: selected === name }" x-text="name"></small>
             </template>
         </div>
     </div>
 
-    <div class="card"
-        x-effect="$get('/backend/api/db/collections/GET-collection-data.php?collection=' + selected)"
+    <div class="card no-hover flex-1"
+        x-effect="$get('/backend/api/db/documents/GET-all-documents-in-collection.php?collection_id=' + selected)"
         @get="collectionData = await $event.detail.response.json();"
     >
 
-        <table>
+        <table class="data-table">
             <thead>
-                
+                <template x-for="col in columns">
+                    <th x-text="col"></th>
+                </template>
             </thead>
             <tbody>
-
+                <template x-for="row in collectionData">
+                    <tr>
+                        <template x-for="col in columns">
+                            <td x-text="row[col].substring(0, 25)"></td>
+                        </template>
+                    </tr>
+                </template>
             </tbody>
         </table>
 

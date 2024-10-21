@@ -26,8 +26,10 @@
     <script defer src="/scripts/alpine-requests.js"></script>
     <script defer src="/scripts/alpine.js"></script>
 
+    <script src="/headless-cms-scripts/"></script>
+
     <!-- Import html-ajax -->
-    <script defer src="/scripts/html-ajax.js"></script>
+    <!-- <script defer src="/scripts/html-ajax.js"></script> -->
 
     <!-- If the title property is set, insert here. -->
     <?php echo $page->get_property('title') ?>
